@@ -1,0 +1,8 @@
+1 - create pkg.xml file inside default
+2 - Use "package.xml generator extension" to create package.xml
+3 - Go to force-app/main/default in terminal
+4 - Retrieve all the fiels Components mentioned in package.xml file to the project using  commands
+			sfdx force:source:retrieve -x ./package.xml
+			
+5 - if need to deploy from sandbox to sandbox/production 
+            sfdx force:source:deploy -c -u <USER NAME> -x ./package.xml -l ReunSpecifiedTestes -r <Required Test classes if more than 1 then seperate test classes with comma(,)>			
