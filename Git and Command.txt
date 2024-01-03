@@ -1,0 +1,99 @@
+Step1:     SSH Create krne ki command:
+	ssh-keygen -t ed25519 -C "your_email@example.com"
+
+
+
+Step2: 
+git init: Initializes a new Git repository in the current directory.
+
+git remote add origin https://github.com/CynoteckTools/fe_workflow.git: Sets up a remote repository named "origin" with the specified URL.
+
+git fetch: Fetches the latest changes from the remote repository.
+
+git checkout master: Switches to the "master" branch.
+
+git checkout -b ctkapp_branch: Creates a new branch named "ctkapp_branch" and switches to it.
+
+sfdx force:source:retrieve -x ./force-app/main/default/package.xml: Retrieves the Salesforce source code based on the specified package.xml file and updates the local project.
+
+git add .: Adds all the changes in the current directory to the staging area, preparing them for the next commit.
+
+git commit -m "Resolved Checkmarx report's issues, Created a test class for Dynamic related list component and added a field set": Commits the changes with a descriptive message.
+
+git push: Pushes the committed changes to the remote repository.
+
+
+
+===========================================================================================================================================================================================
+sfdx force:source:deploy -c -u anshuman.chauhan@cynoteck.combspqa -x ./force-app/main/default/package.xml:
+
+sfdx force:source:deploy: Initiates a deployment of the Salesforce source code to an org.
+	-c: Clears the local project's tracking information before deployment.
+	-u anshuman.chauhan@cynoteck.combspqa: Specifies the target Salesforce username or alias for the deployment.
+	-x ./force-app/main/default/package.xml: Specifies the package.xml file that defines the components to be deployed.
+	sfdx force:source:deploy -c -u anshuman.chauhan@cynoteck.combspqa -x ./force-app/main/default/package.xml -l RunSpecifiedTests -r SMA_AutomaticWorkingToNonViableBatchTest,
+	SMA_AutomaticWorkingToNonViableSchTest:
+
+sfdx force:source:deploy: Similar to the first command, initiates a deployment of Salesforce source code.
+	-c: Clears the local project's tracking information before deployment.
+	-u anshuman.chauhan@cynoteck.combspqa: Specifies the target Salesforce username or alias for the deployment.
+	-x ./force-app/main/default/package.xml: Specifies the package.xml file that defines the components to be deployed.
+	-l RunSpecifiedTests: Specifies that a subset of tests will be run during deployment.
+	-r SMA_AutomaticWorkingToNonViableBatchTest,SMA_AutomaticWorkingToNonViableSchTest: Specifies the names of specific Apex test classes to run during deployment. 
+These are likely test classes associated with the deployment, ensuring that these tests pass before deploying the code to the Salesforce org.
+=========================================================================================================================================================================
+sfdx plugins:install sfdx-git-delta: Installs the Salesforce CLI plugin named "sfdx-git-delta," which provides capabilities for handling and deploying changes in a more efficient manner using Git deltas.
+
+sfdx sgd:source:delta --to dev --from main --output ./delta --generate-delta: Utilizes the installed plugin to generate a delta (changeset) of Salesforce source code between the "main" branch and the "dev" branch. 
+The delta is output to the "./delta" directory.
+
+sfdx auth:logout --targetusername anshuman.chauhan@cynoteck.combspde: Logs out from the Salesforce org associated with the provided username "anshuman.chauhan@cynoteck.combspde."
+
+sfdx force:source:deploy -c -u anshuman.chauhan@cynoteck.combspqa --sourcepath ./delta -l RunLocalTests: Deploys the changes in the "./delta" directory to the Salesforce org specified by the username "anshuman.chauhan@cynoteck.combspqa." 
+The deployment includes running local tests ("-l RunLocalTests") and deploying with a check for conflicts ("-c").
+
+OR
+
+sfdx force:source:deploy -c -u anshuman.chauhan@cynoteck.combspqa --sourcepath force-app -l RunLocalTests: Deploys the changes in the "force-app" directory to the Salesforce org specified by the username "anshuman.chauhan@cynoteck.combspqa." 
+This deployment also includes running local tests ("-l RunLocalTests") and checking for conflicts ("-c").
+
+sfdx force:source:deploy -c -u anshuman.chauhan@cynoteck.combspqa --sourcepath ./delta: Deploys the changes in the "./delta" directory to the Salesforce org specified by the username "anshuman.chauhan@cynoteck.combspqa." This deployment includes 
+running local tests ("-l RunLocalTests") and deploying with a check for conflicts ("-c").
+
+sfdx sgd:source:delta --to dev --from main --output ./delta --generate-delta: Again, generates a delta of Salesforce source code between the "main" branch and the "dev" branch, outputting it to the "./delta" directory.
+
+sfdx force:source:deploy -u anshuman.chauhan@cynoteck.comuat --sourcepath ./delta: Deploys the changes in the "./delta" directory to the Salesforce org specified by the username "anshuman.chauhan@cynoteck.comuat." This deployment does not 
+include running local tests or checking for conflicts.
+
+
+
+============================================================================================================================================================================
+
+
+
+git fetch: Fetches the latest changes from the remote repository without automatically 
+merging them into the current branch.
+
+git pull --all: Pulls changes from all branches in the remote repository and merges 
+them into the current local branch.
+
+git checkout feature/B-1-T8: Switches to the branch named "feature/B-1-T8."
+
+git checkout -b feature/B-1-T8: Creates a new branch named "feature/B-1-T8" and switches to it.
+
+git push: Pushes the changes in the local branch to the remote repository.
+
+git push --set-upstream origin feature/B-1-T9: Pushes the changes to a new branch named
+ "feature/B-1-T9" on the remote repository and sets up the tracking relationship.
+
+sfdx force:source:retrieve -x ./force-app/main/default/package.xml: Retrieves the 
+Salesforce source code based on the specified package.xml file and updates the local project.
+
+sfdx force:source:retrieve -x ./package.xml: Retrieves the Salesforce source code based 
+on the specified package.xml file and updates the local project.
+
+sfdx force:source:deploy -c -u <USER NAME> -x ./package.xml: Deploys the Salesforce source 
+code to the specified Salesforce org (-u) using the deployment configuration (-c) and the 
+package.xml file.
+
+=====================================================================================================================================================================
